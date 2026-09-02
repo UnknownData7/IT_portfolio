@@ -1,0 +1,1 @@
+SELECT '-- Constraint migration' AS info;

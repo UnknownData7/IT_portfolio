@@ -1,0 +1,1610 @@
++ set -euo pipefail
++++ dirname ./main.sh
+++ cd .
+++ pwd
++ SCRIPT_DIR='/mnt/c/Users/Mans/Documents/bash script/deepseek'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/logger.sh'
+++ RED='\033[0;31m'
+++ GREEN='\033[0;32m'
+++ YELLOW='\033[1;33m'
+++ BLUE='\033[0;34m'
+++ CYAN='\033[0;36m'
+++ NC='\033[0m'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/config_loader.sh'
+++ CONFIG_FILE=
+++ SOURCE_DSN=
+++ TARGET_DSN=
+++ TABLES=
+++ THREADS=4
+++ DRY_RUN=false
+++ VERBOSE=false
+++ WORK_DIR=work
+++ declare -A WHERE_CLAUSES
+++ declare -A COPY_WHERE_CLAUSES
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/database.sh'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/migration_core.sh'
+++ BATCH_SIZE=100000
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/parallel_executor.sh'
+++++ dirname '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/parallel_executor.sh'
++++ cd '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib'
++++ pwd
+++ PARALLEL_DIR='/mnt/c/Users/Mans/Documents/bash script/deepseek/lib'
+++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/../utils/progress.sh'
++++ PROGRESS_TOTAL=0
++++ PROGRESS_CURRENT=0
++++ PROGRESS_WIDTH=50
++++ declare -A TABLE_PROGRESS
+++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/../utils/error_handler.sh'
++++ set -euo pipefail
++++ declare -a ERROR_LOG
++++ ERROR_COUNT=0
++++ WARNING_COUNT=0
++++ trap 'handle_error $LINENO' ERR
+++ PROGRESS_TOTAL=0
+++ PROGRESS_CURRENT=0
+++ declare -A TABLE_PROGRESS
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/lib/migration_queues.sh'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/validator.sh'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/dry_run.sh'
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/error_handler.sh'
+++ set -euo pipefail
+++ declare -a ERROR_LOG
+++ ERROR_COUNT=0
+++ WARNING_COUNT=0
+++ trap 'handle_error $LINENO' ERR
++ source '/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/progress.sh'
+++ PROGRESS_TOTAL=0
+++ PROGRESS_CURRENT=0
+++ PROGRESS_WIDTH=50
+++ declare -A TABLE_PROGRESS
++ echo 'import finished'
+import finished
++ MIGRATION_START_TIME=0
++ CURRENT_PHASE=
++ trap 'cleanup_and_exit "INT"' INT
++ trap 'cleanup_and_exit "TERM"' TERM
++ trap 'handle_error $LINENO' ERR
++ [[ 2 -gt 0 ]]
++ case "$1" in
++ main config/migrator.conf 1
++ local config_file=config/migrator.conf
++ local threads=1
++ initialize_migration config/migrator.conf 1
++ local config_file=config/migrator.conf
++ local threads=1
+++ date +%s
++ MIGRATION_START_TIME=1764276107
++ check_dependencies
++ deps=('psql' 'pg_dump' 'pg_dumpall')
++ local deps
++ missing=()
++ local missing
++ for dep in "${deps[@]}"
++ command -v psql
++ for dep in "${deps[@]}"
++ command -v pg_dump
++ for dep in "${deps[@]}"
++ command -v pg_dumpall
++ [[ 0 -gt 0 ]]
++ load_config config/migrator.conf 1
++ CONFIG_FILE=config/migrator.conf
++ THREADS=1
++ [[ ! -f config/migrator.conf ]]
++ source config/migrator.conf
+++ SOURCE_DSN=postgresql://migrator:securepass@localhost:25432/source_db
+++ TARGET_DSN=postgresql://migrator:securepass@localhost:25433/target_db
+++ TABLES=users,orders,products
+++ DRY_RUN=false
+++ VERBOSE=true
+++ BATCH_SIZE=1000
+++ declare -A WHERE_CLAUSES
+++ WHERE_CLAUSES=()
+++ declare -A COPY_WHERE_CLAUSES
+++ COPY_WHERE_CLAUSES=()
++ required_vars=('SOURCE_DSN' 'TARGET_DSN')
++ local required_vars
++ for var in "${required_vars[@]}"
++ [[ -z postgresql://migrator:securepass@localhost:25432/source_db ]]
++ for var in "${required_vars[@]}"
++ [[ -z postgresql://migrator:securepass@localhost:25433/target_db ]]
++ log_info 'Configuration loaded: config/migrator.conf'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Configuration loaded: config/migrator.conf'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Configuration loaded: config/migrator.conf
++ setup_work_dirs
++ mkdir -p work/logs work/dumps work/temp
++ log_info 'Work directories created: work/'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Work directories created: work/'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Work directories created: work/
++ log_stage '=== POSTGRES MIGRATION START ==='
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m === POSTGRES MIGRATION START ==='
+[0;36m[2025-11-27 23:41:47] STAGE:[0m === POSTGRES MIGRATION START ===
+++ basename config/migrator.conf
++ log_info 'Config: migrator.conf'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Config: migrator.conf'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Config: migrator.conf
++ log_info 'Threads: 1'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Threads: 1'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Threads: 1
++ log_info 'Dry-run: false'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Dry-run: false'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Dry-run: false
++ log_info 'Verbose: true'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Verbose: true'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Verbose: true
+++ date -d @1764276107 '+%Y-%m-%d %H:%M:%S'
++ log_info 'Start time: 2025-11-27 23:41:47'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Start time: 2025-11-27 23:41:47'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Start time: 2025-11-27 23:41:47
++ echo ''
+
++ [[ false != \t\r\u\e ]]
++ validate_connections
++ log_stage 'VALIDATING DATABASE CONNECTIONS'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m VALIDATING DATABASE CONNECTIONS'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m VALIDATING DATABASE CONNECTIONS
++ validate_database_connection postgresql://migrator:securepass@localhost:25432/source_db source
++ local dsn=postgresql://migrator:securepass@localhost:25432/source_db
++ local db_type=source
++ log_info 'Validating source database connection...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Validating source database connection...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Validating source database connection...
++ run_with_retry 'psql "postgresql://migrator:securepass@localhost:25432/source_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1' 3 2
++ local 'cmd=psql "postgresql://migrator:securepass@localhost:25432/source_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1'
++ local max_attempts=3
++ local delay=2
++ local attempt=1
++ [[ 1 -le 3 ]]
++ eval 'psql "postgresql://migrator:securepass@localhost:25432/source_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1'
+++ psql postgresql://migrator:securepass@localhost:25432/source_db -c 'SELECT 1;'
++ return 0
++ return 0
++ validate_database_connection postgresql://migrator:securepass@localhost:25433/target_db target
++ local dsn=postgresql://migrator:securepass@localhost:25433/target_db
++ local db_type=target
++ log_info 'Validating target database connection...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Validating target database connection...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Validating target database connection...
++ run_with_retry 'psql "postgresql://migrator:securepass@localhost:25433/target_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1' 3 2
++ local 'cmd=psql "postgresql://migrator:securepass@localhost:25433/target_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1'
++ local max_attempts=3
++ local delay=2
++ local attempt=1
++ [[ 1 -le 3 ]]
++ eval 'psql "postgresql://migrator:securepass@localhost:25433/target_db" -c '\''SELECT 1;'\'' >/dev/null 2>&1'
+++ psql postgresql://migrator:securepass@localhost:25433/target_db -c 'SELECT 1;'
++ return 0
++ return 0
++ log_success 'Database connections validated successfully'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:47] SUCCESS:\033[0m Database connections validated successfully'
+[0;32m[2025-11-27 23:41:47] SUCCESS:[0m Database connections validated successfully
++ [[ false == \t\r\u\e ]]
++ run_migration
++ log_stage 'STARTING MIGRATION PROCESS'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m STARTING MIGRATION PROCESS'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m STARTING MIGRATION PROCESS
++ run_phase PRE_SETUP setup_migration
++ local phase_name=PRE_SETUP
++ local phase_function=setup_migration
+++ date +%s
++ local phase_start=1764276107
++ CURRENT_PHASE=PRE_SETUP
++ log_stage 'PHASE: PRE_SETUP'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m PHASE: PRE_SETUP'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m PHASE: PRE_SETUP
++ setup_migration
++ log_info 'Creating helper functions...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Creating helper functions...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Creating helper functions...
++ create_helper_functions
++ log_stage '3. CREATING HELPER FUNCTIONS'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m 3. CREATING HELPER FUNCTIONS'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m 3. CREATING HELPER FUNCTIONS
++ [[ false == \t\r\u\e ]]
++ log_info 'Creating helper functions...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Creating helper functions...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Creating helper functions...
+++ dirname ./main.sh
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f ./../sql/helper_functions.sql
++ log_success 'Helper functions created'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:47] SUCCESS:\033[0m Helper functions created'
+[0;32m[2025-11-27 23:41:47] SUCCESS:[0m Helper functions created
++ log_info 'Setting up migration environment...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Setting up migration environment...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Setting up migration environment...
++ return 0
+++ date +%s
++ local phase_end=1764276107
++ local phase_duration=0
+++ format_duration 0
+++ local seconds=0
+++ local hours=0
+++ local minutes=0
+++ local secs=0
+++ [[ 0 -gt 0 ]]
+++ [[ 0 -gt 0 ]]
+++ printf %ds 0
++ log_success 'Phase PRE_SETUP completed in 0s'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:47] SUCCESS:\033[0m Phase PRE_SETUP completed in 0s'
+[0;32m[2025-11-27 23:41:47] SUCCESS:[0m Phase PRE_SETUP completed in 0s
++ echo ''
+
++ run_phase SCHEMA migrate_schema_phase
++ local phase_name=SCHEMA
++ local phase_function=migrate_schema_phase
+++ date +%s
++ local phase_start=1764276107
++ CURRENT_PHASE=SCHEMA
++ log_stage 'PHASE: SCHEMA'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m PHASE: SCHEMA'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m PHASE: SCHEMA
++ migrate_schema_phase
++ log_info 'Migrating roles and globals...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Migrating roles and globals...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Migrating roles and globals...
++ migrate_roles
++ log_stage '1. MIGRATING ROLES'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m 1. MIGRATING ROLES'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m 1. MIGRATING ROLES
++ [[ false == \t\r\u\e ]]
++ log_info 'Exporting roles...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Exporting roles...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Exporting roles...
++ pg_dumpall --globals-only -d postgresql://migrator:securepass@localhost:25432/source_db
++ log_info 'Importing roles...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Importing roles...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Importing roles...
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/dumps/roles.sql
++ log_success 'Roles migration completed'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:47] SUCCESS:\033[0m Roles migration completed'
+[0;32m[2025-11-27 23:41:47] SUCCESS:[0m Roles migration completed
++ log_info 'Migrating database schema...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Migrating database schema...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Migrating database schema...
++ migrate_schema
++ log_stage '2. MIGRATING SCHEMA'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:47] STAGE:\033[0m 2. MIGRATING SCHEMA'
+[0;36m[2025-11-27 23:41:47] STAGE:[0m 2. MIGRATING SCHEMA
++ [[ false == \t\r\u\e ]]
++ log_info 'Dumping schema...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Dumping schema...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Dumping schema...
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db
++ log_info 'Applying schema...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:47] INFO:\033[0m Applying schema...'
+[0;34m[2025-11-27 23:41:47] INFO:[0m Applying schema...
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/dumps/schema.sql
++ log_success 'Schema migration completed'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:48] SUCCESS:\033[0m Schema migration completed'
+[0;32m[2025-11-27 23:41:48] SUCCESS:[0m Schema migration completed
++ log_info 'Migrating table structures...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m Migrating table structures...'
+[0;34m[2025-11-27 23:41:48] INFO:[0m Migrating table structures...
++ run_migration_phase SCHEMA
++ local phase=SCHEMA
++ case "$phase" in
++ log_stage 'MIGRATING TABLE STRUCTURES'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:48] STAGE:\033[0m MIGRATING TABLE STRUCTURES'
+[0;36m[2025-11-27 23:41:48] STAGE:[0m MIGRATING TABLE STRUCTURES
++ migrate_all_table_structures
+++ get_tables_to_migrate
+++ [[ users,orders,products == \a\l\l ]]
+++ echo users,orders,products
+++ tr , '\n'
++ tables=('users' 'orders' 'products')
++ local tables
++ local total_tables=3
++ local current=0
++ log_info 'Migrating structures for 3 tables...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m Migrating structures for 3 tables...'
+[0;34m[2025-11-27 23:41:48] INFO:[0m Migrating structures for 3 tables...
++ for table in "${tables[@]}"
++ current=1
++ log_info '[1/3] Creating table: users'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m [1/3] Creating table: users'
+[0;34m[2025-11-27 23:41:48] INFO:[0m [1/3] Creating table: users
++ migrate_table_structure users
++ local table=users
++ log_info 'Migrating structure: users'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m Migrating structure: users'
+[0;34m[2025-11-27 23:41:48] INFO:[0m Migrating structure: users
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_users.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t users
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_users.sql
++ rm -f work/temp/structure_users.sql
++ for table in "${tables[@]}"
++ current=2
++ log_info '[2/3] Creating table: orders'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m [2/3] Creating table: orders'
+[0;34m[2025-11-27 23:41:48] INFO:[0m [2/3] Creating table: orders
++ migrate_table_structure orders
++ local table=orders
++ log_info 'Migrating structure: orders'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m Migrating structure: orders'
+[0;34m[2025-11-27 23:41:48] INFO:[0m Migrating structure: orders
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_orders.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t orders
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_orders.sql
++ rm -f work/temp/structure_orders.sql
++ for table in "${tables[@]}"
++ current=3
++ log_info '[3/3] Creating table: products'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m [3/3] Creating table: products'
+[0;34m[2025-11-27 23:41:48] INFO:[0m [3/3] Creating table: products
++ migrate_table_structure products
++ local table=products
++ log_info 'Migrating structure: products'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:48] INFO:\033[0m Migrating structure: products'
+[0;34m[2025-11-27 23:41:48] INFO:[0m Migrating structure: products
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_products.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t products
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_products.sql
++ rm -f work/temp/structure_products.sql
++ log_success 'Table structures migration completed'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:49] SUCCESS:\033[0m Table structures migration completed'
+[0;32m[2025-11-27 23:41:49] SUCCESS:[0m Table structures migration completed
++ return 0
+++ date +%s
++ local phase_end=1764276109
++ local phase_duration=2
+++ format_duration 2
+++ local seconds=2
+++ local hours=0
+++ local minutes=0
+++ local secs=2
+++ [[ 0 -gt 0 ]]
+++ [[ 0 -gt 0 ]]
+++ printf %ds 2
++ log_success 'Phase SCHEMA completed in 2s'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:49] SUCCESS:\033[0m Phase SCHEMA completed in 2s'
+[0;32m[2025-11-27 23:41:49] SUCCESS:[0m Phase SCHEMA completed in 2s
++ echo ''
+
++ run_phase DATA migrate_data_phase
++ local phase_name=DATA
++ local phase_function=migrate_data_phase
+++ date +%s
++ local phase_start=1764276109
++ CURRENT_PHASE=DATA
++ log_stage 'PHASE: DATA'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:49] STAGE:\033[0m PHASE: DATA'
+[0;36m[2025-11-27 23:41:49] STAGE:[0m PHASE: DATA
++ migrate_data_phase
++ log_info 'Migrating table data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Migrating table data...'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Migrating table data...
++ run_migration_phase DATA
++ local phase=DATA
++ case "$phase" in
++ log_stage 'MIGRATING TABLE DATA'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:49] STAGE:\033[0m MIGRATING TABLE DATA'
+[0;36m[2025-11-27 23:41:49] STAGE:[0m MIGRATING TABLE DATA
++ migrate_all_table_data
+++ get_tables_to_migrate
+++ [[ users,orders,products == \a\l\l ]]
+++ echo users,orders,products
+++ tr , '\n'
++ tables=('users' 'orders' 'products')
++ local tables
++ parallel_migrate_tables
+++ get_tables_to_migrate
+++ [[ users,orders,products == \a\l\l ]]
+++ echo users,orders,products
+++ tr , '\n'
++ tables=('users' 'orders' 'products')
++ local tables
++ local table_count=3
++ log_stage 'PARALLEL TABLE MIGRATION'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:49] STAGE:\033[0m PARALLEL TABLE MIGRATION'
+[0;36m[2025-11-27 23:41:49] STAGE:[0m PARALLEL TABLE MIGRATION
++ log_info 'Migrating 3 tables using 1 threads'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Migrating 3 tables using 1 threads'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Migrating 3 tables using 1 threads
++ init_progress 3
++ PROGRESS_TOTAL=3
++ PROGRESS_CURRENT=0
++ update_progress 0 3
++ local current=0
++ local total=3
++ local table=
++ PROGRESS_CURRENT=0
++ [[ -n '' ]]
++ local percentage=0
++ local filled=0
++ local empty=50
++ local 'bar=['
++ (( i=0 ))
++ (( i<filled ))
++ (( i=0 ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=']'
++ printf '\r\033[0;34mProgress:\033[0m %-50s %3d%% (%d/%d)' '[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]' 0 0 3
+[0;34mProgress:[0m [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0% (0/3)+ [[ 0 -eq 3 ]]
++ local current=0
++ for table in "${tables[@]}"
++ current=1
++ migrate_table_structure users
++ local table=users
++ log_info 'Migrating structure: users'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Migrating structure: users'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Migrating structure: users
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_users.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t users
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_users.sql
++ rm -f work/temp/structure_users.sql
++ local pid=27174
++ log_info 'Started: users (PID: 27174)'
++ migrate_table_data_copy users 1 1=1
++ local table=users
++ local thread_id=1
++ local where_clause=1=1
++ log_table '[Thread 1] Migrating data: users'
+++ date '+%Y-%m-%d %H:%M:%S'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Started: users (PID: 27174)'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Started: users (PID: 27174)
++ [[ 1 -ge 1 ]]
++ wait 27174
++ echo -e '\033[0;32m[2025-11-27 23:41:49] TABLE:\033[0m [Thread 1] Migrating data: users'
+[0;32m[2025-11-27 23:41:49] TABLE:[0m [Thread 1] Migrating data: users
++ local temp_file=work/temp/users_1.csv
++ log_info 'Exporting users data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Exporting users data...'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Exporting users data...
++ [[ users == \u\s\e\r\s ]]
++ psql -d postgresql://migrator:securepass@localhost:25432/source_db -c '\COPY (SELECT id, email, name, created_at::text, updated_at::text, status FROM users WHERE 1=1) TO STDOUT WITH CSV'
++ log_info 'Importing users data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Importing users data...'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Importing users data...
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -c '\COPY users FROM STDIN WITH CSV'
+COPY 3
++ rm -f work/temp/users_1.csv
++ log_success '[Thread 1] Completed: users'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:49] SUCCESS:\033[0m [Thread 1] Completed: users'
+[0;32m[2025-11-27 23:41:49] SUCCESS:[0m [Thread 1] Completed: users
++ update_progress 1 3 users
++ local current=1
++ local total=3
++ local table=users
++ PROGRESS_CURRENT=1
++ [[ -n users ]]
++ TABLE_PROGRESS["$table"]=1/3
++ local percentage=33
++ local filled=16
++ local empty=34
++ local 'bar=['
++ (( i=0 ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ (( i=0 ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=']'
++ printf '\r\033[0;34mProgress:\033[0m %-50s %3d%% (%d/%d)' '[████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]' 33 1 3
+[0;34mProgress:[0m [████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  33% (1/3)+ [[ 1 -eq 3 ]]
++ for table in "${tables[@]}"
++ current=2
++ migrate_table_structure orders
++ local table=orders
++ log_info 'Migrating structure: orders'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Migrating structure: orders'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Migrating structure: orders
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_orders.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t orders
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_orders.sql
++ rm -f work/temp/structure_orders.sql
++ local pid=27193
++ log_info 'Started: orders (PID: 27193)'
++ migrate_table_data_copy orders 2 1=1
++ local table=orders
++ local thread_id=2
++ local where_clause=1=1
++ log_table '[Thread 2] Migrating data: orders'
+++ date '+%Y-%m-%d %H:%M:%S'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:49] TABLE:\033[0m [Thread 2] Migrating data: orders'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Started: orders (PID: 27193)'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Started: orders (PID: 27193)
+[0;32m[2025-11-27 23:41:49] TABLE:[0m [Thread 2] Migrating data: orders
++ [[ 2 -ge 1 ]]
++ wait 27193
++ local temp_file=work/temp/orders_2.csv
++ log_info 'Exporting orders data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Exporting orders data...'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Exporting orders data...
++ [[ orders == \u\s\e\r\s ]]
++ psql -d postgresql://migrator:securepass@localhost:25432/source_db -c '\COPY (SELECT * FROM orders WHERE 1=1) TO STDOUT WITH CSV'
++ log_info 'Importing orders data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:49] INFO:\033[0m Importing orders data...'
+[0;34m[2025-11-27 23:41:49] INFO:[0m Importing orders data...
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -c '\COPY orders FROM STDIN WITH CSV'
+ERROR:  insert or update on table "orders" violates foreign key constraint "orders_product_id_fkey"
+DETAIL:  Key (product_id)=(1) is not present in table "products".
++ rm -f work/temp/orders_2.csv
++ log_success '[Thread 2] Completed: orders'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:50] SUCCESS:\033[0m [Thread 2] Completed: orders'
+[0;32m[2025-11-27 23:41:50] SUCCESS:[0m [Thread 2] Completed: orders
++ update_progress 2 3 orders
++ local current=2
++ local total=3
++ local table=orders
++ PROGRESS_CURRENT=2
++ [[ -n orders ]]
++ TABLE_PROGRESS["$table"]=2/3
++ local percentage=66
++ local filled=33
++ local empty=17
++ local 'bar=['
++ (( i=0 ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ (( i=0 ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=░
++ (( i++ ))
++ (( i<empty ))
++ bar+=']'
++ printf '\r\033[0;34mProgress:\033[0m %-50s %3d%% (%d/%d)' '[█████████████████████████████████░░░░░░░░░░░░░░░░░]' 66 2 3
+[0;34mProgress:[0m [█████████████████████████████████░░░░░░░░░░░░░░░░░]  66% (2/3)+ [[ 2 -eq 3 ]]
++ for table in "${tables[@]}"
++ current=3
++ migrate_table_structure products
++ local table=products
++ log_info 'Migrating structure: products'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Migrating structure: products'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Migrating structure: products
++ [[ false == \t\r\u\e ]]
++ local temp_file=work/temp/structure_products.sql
++ pg_dump -s -d postgresql://migrator:securepass@localhost:25432/source_db -t products
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -f work/temp/structure_products.sql
++ rm -f work/temp/structure_products.sql
++ local pid=27212
++ log_info 'Started: products (PID: 27212)'
++ migrate_table_data_copy products 3 1=1
++ local table=products
++ local thread_id=3
++ local where_clause=1=1
++ log_table '[Thread 3] Migrating data: products'
+++ date '+%Y-%m-%d %H:%M:%S'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Started: products (PID: 27212)'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Started: products (PID: 27212)
++ [[ 3 -ge 1 ]]
++ wait 27212
++ echo -e '\033[0;32m[2025-11-27 23:41:50] TABLE:\033[0m [Thread 3] Migrating data: products'
+[0;32m[2025-11-27 23:41:50] TABLE:[0m [Thread 3] Migrating data: products
++ local temp_file=work/temp/products_3.csv
++ log_info 'Exporting products data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Exporting products data...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Exporting products data...
++ [[ products == \u\s\e\r\s ]]
++ psql -d postgresql://migrator:securepass@localhost:25432/source_db -c '\COPY (SELECT * FROM products WHERE 1=1) TO STDOUT WITH CSV'
++ log_info 'Importing products data...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Importing products data...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Importing products data...
++ psql -d postgresql://migrator:securepass@localhost:25433/target_db -c '\COPY products FROM STDIN WITH CSV'
+COPY 3
++ rm -f work/temp/products_3.csv
++ log_success '[Thread 3] Completed: products'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:50] SUCCESS:\033[0m [Thread 3] Completed: products'
+[0;32m[2025-11-27 23:41:50] SUCCESS:[0m [Thread 3] Completed: products
++ update_progress 3 3 products
++ local current=3
++ local total=3
++ local table=products
++ PROGRESS_CURRENT=3
++ [[ -n products ]]
++ TABLE_PROGRESS["$table"]=3/3
++ local percentage=100
++ local filled=50
++ local empty=0
++ local 'bar=['
++ (( i=0 ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ (( i=0 ))
++ (( i<empty ))
++ bar+=']'
++ printf '\r\033[0;34mProgress:\033[0m %-50s %3d%% (%d/%d)' '[██████████████████████████████████████████████████]' 100 3 3
+[0;34mProgress:[0m [██████████████████████████████████████████████████] 100% (3/3)+ [[ 3 -eq 3 ]]
++ echo ''
+
++ wait
++ update_progress 3 3
++ local current=3
++ local total=3
++ local table=
++ PROGRESS_CURRENT=3
++ [[ -n '' ]]
++ local percentage=100
++ local filled=50
++ local empty=0
++ local 'bar=['
++ (( i=0 ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ bar+=█
++ (( i++ ))
++ (( i<filled ))
++ (( i=0 ))
++ (( i<empty ))
++ bar+=']'
++ printf '\r\033[0;34mProgress:\033[0m %-50s %3d%% (%d/%d)' '[██████████████████████████████████████████████████]' 100 3 3
+[0;34mProgress:[0m [██████████████████████████████████████████████████] 100% (3/3)+ [[ 3 -eq 3 ]]
++ echo ''
+
++ show_table_progress
++ log_info '=== TABLE PROGRESS ==='
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m === TABLE PROGRESS ==='
+[0;34m[2025-11-27 23:41:50] INFO:[0m === TABLE PROGRESS ===
++ for table in "${!TABLE_PROGRESS[@]}"
++ echo '  users: 1/3'
+  users: 1/3
++ for table in "${!TABLE_PROGRESS[@]}"
++ echo '  orders: 2/3'
+  orders: 2/3
++ for table in "${!TABLE_PROGRESS[@]}"
++ echo '  products: 3/3'
+  products: 3/3
++ echo ======================
+======================
++ log_info 'Migrating special objects...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Migrating special objects...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Migrating special objects...
++ migrate_special_objects
++ [[ -f /mnt/c/Users/Mans/Documents/bash script/deepseek/sql/sequences.sql ]]
++ [[ -f /mnt/c/Users/Mans/Documents/bash script/deepseek/sql/views.sql ]]
++ return 0
++ return 0
+++ date +%s
++ local phase_end=1764276110
++ local phase_duration=1
+++ format_duration 1
+++ local seconds=1
+++ local hours=0
+++ local minutes=0
+++ local secs=1
+++ [[ 0 -gt 0 ]]
+++ [[ 0 -gt 0 ]]
+++ printf %ds 1
++ log_success 'Phase DATA completed in 1s'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:50] SUCCESS:\033[0m Phase DATA completed in 1s'
+[0;32m[2025-11-27 23:41:50] SUCCESS:[0m Phase DATA completed in 1s
++ echo ''
+
++ run_phase POST_PROCESSING post_processing_phase
++ local phase_name=POST_PROCESSING
++ local phase_function=post_processing_phase
+++ date +%s
++ local phase_start=1764276110
++ CURRENT_PHASE=POST_PROCESSING
++ log_stage 'PHASE: POST_PROCESSING'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:50] STAGE:\033[0m PHASE: POST_PROCESSING'
+[0;36m[2025-11-27 23:41:50] STAGE:[0m PHASE: POST_PROCESSING
++ post_processing_phase
++ log_info 'Applying indexes...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Applying indexes...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Applying indexes...
++ run_migration_phase INDEXES
++ local phase=INDEXES
++ case "$phase" in
++ log_stage 'APPLYING INDEXES & CONSTRAINTS'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:50] STAGE:\033[0m APPLYING INDEXES & CONSTRAINTS'
+[0;36m[2025-11-27 23:41:50] STAGE:[0m APPLYING INDEXES & CONSTRAINTS
++ apply_all_indexes_and_constraints
++ log_info 'Applying indexes...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Applying indexes...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Applying indexes...
++ apply_indexes
++ log_stage '5. APPLYING INDEXES'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:50] STAGE:\033[0m 5. APPLYING INDEXES'
+[0;36m[2025-11-27 23:41:50] STAGE:[0m 5. APPLYING INDEXES
++ [[ false == \t\r\u\e ]]
+++ dirname ./main.sh
++ [[ -f ./../sql/indexes.sql ]]
++ log_warn 'No indexes.sql file found'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[1;33m[2025-11-27 23:41:50] WARN:\033[0m No indexes.sql file found'
+[1;33m[2025-11-27 23:41:50] WARN:[0m No indexes.sql file found
++ log_info 'Applying constraints...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Applying constraints...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Applying constraints...
++ apply_constraints
++ log_stage '6. APPLYING CONSTRAINTS'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;36m[2025-11-27 23:41:50] STAGE:\033[0m 6. APPLYING CONSTRAINTS'
+[0;36m[2025-11-27 23:41:50] STAGE:[0m 6. APPLYING CONSTRAINTS
++ [[ false == \t\r\u\e ]]
+++ dirname ./main.sh
++ [[ -f ./../sql/constraints.sql ]]
++ log_warn 'No constraints.sql file found'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[1;33m[2025-11-27 23:41:50] WARN:\033[0m No constraints.sql file found'
+[1;33m[2025-11-27 23:41:50] WARN:[0m No constraints.sql file found
++ log_success 'Indexes and constraints applied'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;32m[2025-11-27 23:41:50] SUCCESS:\033[0m Indexes and constraints applied'
+[0;32m[2025-11-27 23:41:50] SUCCESS:[0m Indexes and constraints applied
++ log_info 'Validating migration...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '\033[0;34m[2025-11-27 23:41:50] INFO:\033[0m Validating migration...'
+[0;34m[2025-11-27 23:41:50] INFO:[0m Validating migration...
++ validate_migration
++ log 'Validating migration results...'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '[2025-11-27 23:41:50] Validating migration results...'
+[2025-11-27 23:41:50] Validating migration results...
+++ get_tables_to_migrate
+++ [[ users,orders,products == \a\l\l ]]
+++ echo users,orders,products
+++ tr , '\n'
++ tables=('users' 'orders' 'products')
++ local tables
++ local total_source=0
++ local total_target=0
++ local errors=0
++ for table in "${tables[@]}"
+++ psql postgresql://migrator:securepass@localhost:25432/source_db -t -c 'SELECT COUNT(*) FROM users;'
+++ tr -d ' '
+++ grep -v '^$'
++ local source_count=3
+++ psql postgresql://migrator:securepass@localhost:25433/target_db -t -c 'SELECT COUNT(*) FROM users;'
+++ tr -d ' '
+++ grep -v '^$'
++ local target_count=3
++ source_count=3
++ target_count=3
++ total_source=3
++ total_target=3
++ [[ 3 -eq 3 ]]
++ log '✓ Table users: 3 = 3'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '[2025-11-27 23:41:50] ✓ Table users: 3 = 3'
+[2025-11-27 23:41:50] ✓ Table users: 3 = 3
++ for table in "${tables[@]}"
+++ psql postgresql://migrator:securepass@localhost:25432/source_db -t -c 'SELECT COUNT(*) FROM orders;'
+++ tr -d ' '
+++ grep -v '^$'
++ local source_count=3
+++ psql postgresql://migrator:securepass@localhost:25433/target_db -t -c 'SELECT COUNT(*) FROM orders;'
+++ tr -d ' '
+++ grep -v '^$'
++ local target_count=0
++ source_count=3
++ target_count=0
++ total_source=6
++ total_target=3
++ [[ 3 -eq 0 ]]
++ warn '✗ Table orders: source=3, target=0'
+/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/validator.sh: line 23: warn: command not found
++ errors=1
++ for table in "${tables[@]}"
+++ psql postgresql://migrator:securepass@localhost:25432/source_db -t -c 'SELECT COUNT(*) FROM products;'
+++ tr -d ' '
+++ grep -v '^$'
++ local source_count=3
+++ psql postgresql://migrator:securepass@localhost:25433/target_db -t -c 'SELECT COUNT(*) FROM products;'
+++ tr -d ' '
+++ grep -v '^$'
++ local target_count=3
++ source_count=3
++ target_count=3
++ total_source=9
++ total_target=6
++ [[ 3 -eq 3 ]]
++ log '✓ Table products: 3 = 3'
+++ date '+%Y-%m-%d %H:%M:%S'
++ echo -e '[2025-11-27 23:41:51] ✓ Table products: 3 = 3'
+[2025-11-27 23:41:51] ✓ Table products: 3 = 3
+/mnt/c/Users/Mans/Documents/bash script/deepseek/utils/validator.sh: line 28: target_target: unbound variable

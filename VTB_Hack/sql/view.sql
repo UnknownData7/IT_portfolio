@@ -1,0 +1,1 @@
+SELECT '-- View migration' AS info;

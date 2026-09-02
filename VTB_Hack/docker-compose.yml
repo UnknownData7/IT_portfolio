@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  postgres-source:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: source_db
+      POSTGRES_USER: migrator
+      POSTGRES_PASSWORD: securepass
+    ports:
+      - "25432:5432"
+    volumes:
+      - postgres_source_data:/var/lib/postgresql/data
+      - ./samples/sample_data.sql:/docker-entrypoint-initdb.d/init.sql
+
+  postgres-target:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: target_db
+      POSTGRES_USER: migrator
+      POSTGRES_PASSWORD: securepass
+    ports:
+      - "25433:5432"
+    volumes:
+      - postgres_target_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_source_data:
+  postgres_target_data:
