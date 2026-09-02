@@ -1,0 +1,165 @@
+{
+  "Source_A": {
+    "source": "Source_A",
+    "total_records": 171454,
+    "completeness": {
+      "geometry": 100.0,
+      "area_sq_m": 100.0,
+      "height": 0.0,
+      "stairs": 0.0,
+      "gkh_floor_count_max": 10.283807901827895,
+      "purpose_of_building": 0.0,
+      "tags": 100.0,
+      "overall": 44.3262582716897
+    },
+    "positional_accuracy": {
+      "bounds_min_x": 3345685.0318936785,
+      "bounds_min_y": 8331550.406998909,
+      "bounds_max_x": 3402454.6326135243,
+      "bounds_max_y": 8419809.41138831,
+      "area_coverage_sqkm": 5010.428439117394,
+      "centroid_spread_x": 11674.231277768191,
+      "centroid_spread_y": 17316.34672073096,
+      "is_in_expected_region": true,
+      "min_neighbor_distance_m": 0.0,
+      "median_neighbor_distance_m": 39.378576540330954
+    },
+    "attribute_accuracy": {
+      "gkh_floor_count_max": {
+        "count": 17632,
+        "mean": 7.318852087114338,
+        "median": 5.0,
+        "completeness": 10.283807901827895
+      },
+      "gkh_floor_count_min": {
+        "count": 17293,
+        "mean": 6.25166252240791,
+        "median": 5.0,
+        "completeness": 10.086087230394158
+      },
+      "area_sq_m": {
+        "count": 171454,
+        "mean": 504.2324725789405,
+        "median": 118.86717500378988,
+        "min": 0.3057499998183339,
+        "max": 137682.43829999957,
+        "completeness": 100.0
+      }
+    },
+    "consistency": {
+      "conflicts": [
+        {
+          "type": "floor_min_vs_max",
+          "count": 420,
+          "rate": 2.431259044862518
+        }
+      ],
+      "conflict_rate": 2.431259044862518
+    },
+    "topological_correctness": {
+      "total": 171454,
+      "valid": 171454,
+      "invalid": 0,
+      "error_types": {
+        "self_intersection": 0,
+        "zero_area": 0,
+        "empty_geometry": 0,
+        "not_polygon": 0,
+        "duplicate_vertices": 0,
+        "spike": 0,
+        "other": 0
+      },
+      "validity_rate": 100.0
+    },
+    "outliers": {
+      "area_sq_m": {
+        "count": 8350,
+        "rate": 4.870110933544858
+      }
+    },
+    "recommendations": [
+      "⚠Низкая полнота данных (44.3%)."
+    ]
+  },
+  "Source_B": {
+    "source": "Source_B",
+    "total_records": 161076,
+    "completeness": {
+      "geometry": 100.0,
+      "area_sq_m": 0.0,
+      "height": 99.95902555315503,
+      "stairs": 97.51607936626189,
+      "gkh_floor_count_max": 0.0,
+      "purpose_of_building": 97.53904988949316,
+      "tags": 0.0,
+      "overall": 56.43059354413002
+    },
+    "positional_accuracy": {
+      "bounds_min_x": 3346308.5323616127,
+      "bounds_min_y": 8331551.951131261,
+      "bounds_max_x": 3402449.623236439,
+      "bounds_max_y": 8419797.132821688,
+      "area_coverage_sqkm": 4954.1807645478675,
+      "centroid_spread_x": 12526.371830593906,
+      "centroid_spread_y": 17848.610613666766,
+      "is_in_expected_region": true,
+      "min_neighbor_distance_m": 1.164585588301875e-05,
+      "median_neighbor_distance_m": 39.354181525132816
+    },
+    "attribute_accuracy": {
+      "height": {
+        "count": 161010,
+        "mean": 14.68255394074902,
+        "median": 6.6,
+        "std": 15.167022677343214,
+        "min": 2.0,
+        "max": 462.0,
+        "completeness": 99.95902555315503
+      },
+      "stairs": {
+        "count": 157075,
+        "mean": 4.547108069393602,
+        "median": 2.0,
+        "completeness": 97.51607936626189
+      }
+    },
+    "consistency": {
+      "conflicts": [
+        {
+          "type": "height_vs_stairs",
+          "count": 130,
+          "rate": 0.08276301130033424
+        }
+      ],
+      "conflict_rate": 0.08276301130033424
+    },
+    "topological_correctness": {
+      "total": 161076,
+      "valid": 161076,
+      "invalid": 0,
+      "error_types": {
+        "self_intersection": 0,
+        "zero_area": 0,
+        "empty_geometry": 0,
+        "not_polygon": 0,
+        "duplicate_vertices": 0,
+        "spike": 0,
+        "other": 0
+      },
+      "validity_rate": 100.0
+    },
+    "outliers": {
+      "height": {
+        "count": 2931,
+        "rate": 1.8196379348878788,
+        "bounds": [
+          2,
+          58.5
+        ]
+      }
+    },
+    "recommendations": [
+      "Низкая полнота данных (56.4%)."
+    ]
+  }
+}
